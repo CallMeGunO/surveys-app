@@ -50,6 +50,7 @@ const QuestionWithAnswers: React.FC<QuestionWithAnswersProps> = ({ questionId })
                 )
             })
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [question]
     )
 

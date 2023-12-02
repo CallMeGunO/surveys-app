@@ -14,6 +14,7 @@ interface QuestionWithRatingProps {
 const QuestionWithRating: React.FC<QuestionWithRatingProps> = ({ questionId }) => {
     const { questions } = useSurveyStore()
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [question, _] = useState<QuestionWithRatingType>(questions[questionId] as QuestionWithRatingType)
 
     const handleLeftBorderValueChange = (value: string) => {

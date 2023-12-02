@@ -1,7 +1,6 @@
 import React from 'react'
 import { Survey, SurveyStatus } from '../../core/types/Surveys'
 import useAppRouteStore, { AppRoute } from '../../core/stores/appRouteStore'
-import excelHelper from '../../core/helpers/excelHelper'
 import messageHelper from '../../core/helpers/messageHelper'
 import {
     ContactIcon,
@@ -15,17 +14,19 @@ import {
 import SurveysApi from '../../core/api/surveysApi'
 import surveyHelper from '../../core/helpers/surveyHelper'
 import { Button, Popover, Whisper } from 'rsuite'
+import defaultImage from '../../assets/placeholder-image.jpg'
+import excelHelper from '../../core/helpers/excelHelper'
 
 import styles from './SurveyCard.css'
 
 interface SurveyCardProps {
     survey: Survey
     updateSurveys: () => void
-    isStoppedByCurrentUser: boolean
+    isStopped: boolean
     resultsAmount?: number
 }
 
-const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStoppedByCurrentUser, resultsAmount = 0 }) => {
+const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStopped, resultsAmount = 0 }) => {
     const { setRoute, setSurveyId } = useAppRouteStore()
 
     const takeSurveyHandler = () => {
@@ -128,7 +129,7 @@ const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStoppe
                     </div>
                 )
             case SurveyStatus.Active:
-                return isStoppedByCurrentUser ? (
+                return isStopped ? (
                     <div className={`${styles.status} ${styles.stopped}`} onClick={takeSurveyHandler}>
                         Остановлен
                     </div>
@@ -153,7 +154,7 @@ const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStoppe
                     </div>
                 )
             case SurveyStatus.Active:
-                return isStoppedByCurrentUser ? (
+                return isStopped ? (
                     <div></div>
                 ) : (
                     <div className={styles.buttons}>
@@ -189,13 +190,6 @@ const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStoppe
         }
     }
 
-    const getImageUrl = (imageUrl: string | undefined) => {
-        if (imageUrl) {
-            return imageUrl
-        }
-        return process.env.DEFAULT_IMAGE_URL
-    }
-
     const parseNumberDateToString = (numberDate: number) => {
         const date = new Date(numberDate)
         return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}`
@@ -208,7 +202,7 @@ const SurveyCard: React.FC<SurveyCardProps> = ({ survey, updateSurveys, isStoppe
 
     return (
         <div className={styles.container}>
-            <img className={styles.image} src={getImageUrl(survey.imageUrl)} />
+            <img className={styles.image} src={defaultImage} />
             <div className={styles.info}>
                 <span>{parseNumberDateToString(survey.created)}</span>
                 {survey.data.settings.status !== SurveyStatus.Draft && (

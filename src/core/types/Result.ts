@@ -1,37 +1,26 @@
-import { LookupField } from "./Common"
-import { RequestSurveyData } from "./Surveys"
+import { FirebaseData } from './Common'
 
-interface PlatformResultData {
-    id: string,
-    Survey: LookupField<RequestSurveyData>[],
-    ResultData: string,
-    Created: number,
-    Modified: number,
-    User: LookupField<undefined>[]
+interface FirebaseResultData extends FirebaseData {
+    SurveyId: string
+    ResultData: string
+    Created: number
+    Modified: number
 }
-
-type RequestResultData = LookupField<PlatformResultData> 
 
 interface Answer {
-    questionId: string,
+    questionId: string
     answer: string
 }
- 
+
 interface ResultData {
-    isFinished: boolean,
+    isFinished: boolean
     answers: Answer[]
 }
 
 interface Result {
-    id: string,
-    surveyId: string,
-    userDisplayName: string,
-    data: ResultData,
+    id: string
+    surveyId: string
+    data: ResultData
 }
 
-export {
-    RequestResultData,
-    Answer,
-    ResultData,
-    Result
-}
+export { FirebaseResultData, Answer, ResultData, Result }

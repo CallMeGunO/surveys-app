@@ -26,6 +26,7 @@ const Question: React.FC<QuestionProps> = ({ groupId, questionId, title, selecte
             setQuestionTitle(questions[questionId].title)
             setQuestionType(questions[questionId].type)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const getQuestionTypeRu = (questionType: QuestionType): string => {

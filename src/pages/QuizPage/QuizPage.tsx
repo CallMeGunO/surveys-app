@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import useSurveyStore from '../../core/stores/surveyStore'
 import useAppRouteStore, { AppRoute } from '../../core/stores/appRouteStore'
-import SurveysApi from '../../core/api/surveysApi'
-import surveyHelper from '../../core/helpers/surveyHelper'
-import { Button, Popover } from 'rsuite'
-import useResultsStore from '../../core/stores/resultsStore'
-import ResultsApi from '../../core/api/resultsApi'
+import useSurveyStore from '../../core/stores/surveyStore'
 import { Question, QuestionType, QuestionWithRating, SurveyStatus } from '../../core/types/Surveys'
-import useUserStore from '../../core/stores/userStore'
+import useResultsStore from '../../core/stores/resultsStore'
+import { Answer } from '../../core/types/Result'
+import SurveysApi from '../../core/api/surveysApi'
 import messageHelper from '../../core/helpers/messageHelper'
+import surveyHelper from '../../core/helpers/surveyHelper'
+import ResultsApi from '../../core/api/resultsApi'
 import resultHelper from '../../core/helpers/resultHelper'
+import { Button, Popover } from 'rsuite'
+import defaultImage from '../../assets/placeholder-image.jpg'
 import QuestionGroupPicker from '../../components/QuestionGroupPicker/QuestionGroupPicker'
 import QuizQuestionGroup from '../../components/QuizQuestionGroup/QuizQuestionGroup'
-import { Answer } from '../../core/types/Result'
 
 import styles from './QuizPage.css'
 
@@ -21,8 +21,6 @@ const QuizPage: React.FC = () => {
     const {
         title: surveyTitle,
         description: surveyDescription,
-        auditories: surveyAuditories,
-        imageUrl,
         questionGroups,
         questions,
         status,
@@ -30,7 +28,6 @@ const QuizPage: React.FC = () => {
         created,
         modified,
     } = useSurveyStore()
-    const { userData } = useUserStore()
 
     const [isDataLoading, setIsDataLoading] = useState<boolean>(true)
     const [surveyStatus, setSurveyStatus] = useState<SurveyStatus>(SurveyStatus.Draft)
@@ -77,12 +74,9 @@ const QuizPage: React.FC = () => {
                 id: surveyId,
                 title: survey.title,
                 description: survey.description,
-                userId: survey.userId,
                 questionGroups: survey.data.content.questionGroups,
                 questions: survey.data.content.questions,
-                auditories: survey.data.settings.auditories,
                 status: survey.data.settings.status,
-                imageUrl: survey.imageUrl || '',
                 created: survey.created,
                 modified: survey.modified,
             })
@@ -97,7 +91,7 @@ const QuizPage: React.FC = () => {
                 .map((resultData) => resultHelper.parseRequestResultData(resultData))
                 .find((result) => !result.data.isFinished)
 
-            if (unfinfishedResult && unfinfishedResult.userDisplayName === userData.displayName) {
+            if (unfinfishedResult) {
                 setResultsStore({
                     id: unfinfishedResult.id,
                     surveyId: surveyId,
@@ -122,6 +116,7 @@ const QuizPage: React.FC = () => {
         }
 
         fetchSurvey()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const callFunctionAfterQuestionCheck = (callback: () => void, checkAll?: boolean) => {
@@ -178,31 +173,23 @@ const QuizPage: React.FC = () => {
 
         let updateResultResponse
         if (resultId === 'new') {
-            updateResultResponse = await resultHelper.createResult(
-                {
-                    id: crypto.randomUUID(),
-                    surveyId: surveyId,
-                    userDisplayName: userData.displayName,
-                    data: {
-                        ...resultData,
-                        isFinished: isFinished,
-                    },
+            updateResultResponse = await resultHelper.createResult({
+                id: crypto.randomUUID(),
+                surveyId: surveyId,
+                data: {
+                    ...resultData,
+                    isFinished: isFinished,
                 },
-                userData.id
-            )
+            })
         } else {
-            updateResultResponse = await resultHelper.updateResult(
-                {
-                    id: resultId,
-                    surveyId: surveyId,
-                    userDisplayName: userData.displayName,
-                    data: {
-                        ...resultData,
-                        isFinished: isFinished,
-                    },
+            updateResultResponse = await resultHelper.updateResult({
+                id: resultId,
+                surveyId: surveyId,
+                data: {
+                    ...resultData,
+                    isFinished: isFinished,
                 },
-                userData.id
-            )
+            })
         }
 
         if (!updateResultResponse.success) {
@@ -217,16 +204,12 @@ const QuizPage: React.FC = () => {
                 description: surveyDescription,
                 created: created,
                 modified: modified,
-                userId: userData.id,
-                imageUrl: imageUrl,
                 data: {
                     content: {
                         questionGroups: questionGroups,
                         questions: questions,
                     },
                     settings: {
-                        auditories: surveyAuditories,
-                        routes: [],
                         status: status,
                     },
                 },
@@ -239,13 +222,6 @@ const QuizPage: React.FC = () => {
         }
     }
 
-    const getImageUrl = (imageUrl: string | undefined) => {
-        if (imageUrl) {
-            return imageUrl
-        }
-        return process.env.DEFAULT_IMAGE_URL
-    }
-
     return isDataLoading ? (
         <div>Загрузка опроса</div>
     ) : (
@@ -254,12 +230,9 @@ const QuizPage: React.FC = () => {
                 <div className={styles.quizInfo}>
                     <div className={styles.title}>{surveyTitle}</div>
                     <div className={styles.data}>
-                        <img className={styles.image} src={getImageUrl(imageUrl)} />
+                        <img className={styles.image} src={defaultImage} />
                         <div className={styles.description}>
                             <div>{surveyDescription}</div>
-                            {surveyAuditories.length > 0 && (
-                                <div>Для кого: {surveyAuditories.map((auditory) => auditory.name).join('; ')}</div>
-                            )}
                         </div>
                     </div>
                 </div>

@@ -78,6 +78,14 @@ module.exports = (env, options) => {
                     include: [/node_modules/, /StaticStyles/],
                     use: ['style-loader', 'css-loader'],
                 },
+                {
+                    test: /\.(png|jpe?g|gif)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                        },
+                    ],
+                },
             ],
         },
         performance: {

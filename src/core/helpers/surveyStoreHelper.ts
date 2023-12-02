@@ -1,12 +1,14 @@
-import useSurveyStore from "../stores/surveyStore";
-import { AnswerVariant, Question, QuestionGroup, QuestionType, QuestionWithAnswers, QuestionWithRating } from "../types/Surveys";
-
+import useSurveyStore from '../stores/surveyStore'
+import { AnswerVariant, Question, QuestionGroup, QuestionType, QuestionWithAnswers, QuestionWithRating } from '../types/Surveys'
 
 class SurveyStoreHelper {
-    
     changeGroupTitle(newTitle: string, groupId: string) {
         const questionGroups = useSurveyStore.getState().questionGroups
-        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || { id: '', title: '', questions: [] }
+        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || {
+            id: '',
+            title: '',
+            questions: [],
+        }
 
         currentGroup.title = newTitle
     }
@@ -15,10 +17,7 @@ class SurveyStoreHelper {
         const questionGroups = useSurveyStore.getState().questionGroups
         const setQuestionGroups = useSurveyStore.getState().setQuestionGroups
 
-        setQuestionGroups([
-            ...questionGroups,
-            questionGroup
-        ])
+        setQuestionGroups([...questionGroups, questionGroup])
     }
 
     deleteQuestionGroup(groupId: string) {
@@ -26,7 +25,11 @@ class SurveyStoreHelper {
         const setQuestionGroups = useSurveyStore.getState().setQuestionGroups
         const questions = useSurveyStore.getState().questions
 
-        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || { id: '', title: '', questions: [] }
+        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || {
+            id: '',
+            title: '',
+            questions: [],
+        }
 
         for (const question of currentGroup.questions) {
             delete questions[question]
@@ -67,7 +70,7 @@ class SurveyStoreHelper {
 
         setQuestions({
             ...questions,
-            [question.id]: question
+            [question.id]: question,
         })
     }
 
@@ -101,7 +104,11 @@ class SurveyStoreHelper {
         const questions = useSurveyStore.getState().questions
         const setQuestions = useSurveyStore.getState().setQuestions
 
-        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || { id: '', title: '', questions: [] }
+        const currentGroup = questionGroups.find((questionGroup) => questionGroup.id === groupId) || {
+            id: '',
+            title: '',
+            questions: [],
+        }
         currentGroup.questions = currentGroup.questions.filter((question) => question !== questionId)
 
         delete questions[questionId]

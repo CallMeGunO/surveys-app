@@ -1,61 +1,42 @@
-import { LookupField } from "./Common"
+import { FirebaseData } from './Common'
 
-interface PlatformSurveyData {
-    id: string,
-    Title: string,
-    Description: string,
-    SurveyData: string,
-    Created: number,
-    Modified: number,
-    User: LookupField<undefined>[],
-    ImageUrl: string,
-}
-
-type RequestSurveyData = LookupField<PlatformSurveyData>
-
-interface Route {
-    conditions: Record<string, boolean>[],
-    path: string,
+interface FirebaseSurveyData extends FirebaseData {
+    Title: string
+    Description: string
+    SurveyData: string
+    Created: number
+    Modified: number
 }
 
 interface Survey {
-    id: string,
-    title: string,
-    description: string,
-    data: SurveyData,
-    created: number,
-    modified: number,
-    userId: string,
-    imageUrl?: string,
+    id: string
+    title: string
+    description: string
+    data: SurveyData
+    created: number
+    modified: number
 }
 
 enum SurveyStatus {
     Draft = 'DRAFT',
     Active = 'ACTIVE',
-    Archive = 'ARCHIVE'
-}
-
-interface Auditory {
-    id: string,
-    name: string,
+    Archive = 'ARCHIVE',
 }
 
 interface SurveyData {
     content: {
-        questionGroups: QuestionGroup[],
-        questions: Record<string, Question>,
+        questionGroups: QuestionGroup[]
+        questions: Record<string, Question>
     }
     settings: {
-        routes: Route[],
-        status: SurveyStatus,
-        auditories: Auditory[]
+        status: SurveyStatus
     }
 }
 
 interface QuestionGroup {
-    id: string,
-    title: string,
-    questions: string[],
+    id: string
+    title: string
+    questions: string[]
 }
 
 enum QuestionType {
@@ -65,14 +46,14 @@ enum QuestionType {
     MultipleLineText = 'MULTIPLE_LINE_TEXT',
     NumberValue = 'NUMBER_VALUE',
     DateValue = 'DATE_VALUE',
-    Rating = 'RATING_VALUE'
+    Rating = 'RATING_VALUE',
 }
 
 interface Question {
-    id: string,
-    title: string,
-    type: QuestionType,
-    isNecessarily: boolean,
+    id: string
+    title: string
+    type: QuestionType
+    isNecessarily: boolean
     isFreeAnswer: boolean
 }
 
@@ -81,18 +62,18 @@ interface QuestionWithAnswers extends Question {
 }
 
 interface QuestionWithRating extends Question {
-    maxValue: number,
-    leftBorder: string,
+    maxValue: number
+    leftBorder: string
     rightBorder: string
 }
 
 interface AnswerVariant {
-    id: string,
-    title: string,
+    id: string
+    title: string
 }
 
 export {
-    RequestSurveyData,
+    FirebaseSurveyData,
     Survey,
     SurveyData,
     QuestionGroup,
@@ -102,5 +83,4 @@ export {
     QuestionWithRating,
     AnswerVariant,
     SurveyStatus,
-    Auditory
 }
