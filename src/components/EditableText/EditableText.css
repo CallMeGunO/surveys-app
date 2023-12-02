@@ -1,0 +1,16 @@
+.container {
+    margin-top: 5px;
+    display: flex;
+    background: var(--background-primary-color);
+    align-items: center;
+    padding: 5px;
+}
+
+.text {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    min-width: fit-content;
+}

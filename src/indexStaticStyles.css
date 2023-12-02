@@ -1,0 +1,96 @@
+:root {
+    /* шрифты */
+    --font-family-main: 'Segoe UI';
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+    --font-size-l: 24px;
+    --font-line-l: 28px;
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+    --font-size-xl: 32px;
+    --font-line-xl: 40px;
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+    --font-size-icon: 20px;
+    --font-line-icon: 0px;
+    --font-icon: var(--font-size-icon) / var(--font-line-icon) var(--font-family-main);
+
+    /* цвета */
+    --border-color: #d8dfeb;
+    --active-color: #00945d;
+    --hover-color: #d7f5ea;
+    --transparent-100-color: #00000000;
+    --shadow-color: #0000000f;
+
+    --text-primary-color: #000000;
+    --text-secondary-color: #6d7585;
+
+    --background-primary-color: #f5f7fa;
+    --background-secondary-color: #ffffff;
+    --background-active-color: #bceedc;
+
+    --input-background-color: #f0f0f0;
+    --input-border-color: #6d6d6d;
+
+    --green: #00945d4d;
+    --red: #f85a5a;
+    --yellow: #fadb14;
+    --grey: #8992a3;
+}
+
+#surveys-app,
+.rs-picker-menu.custom-picker,
+.rs-popover.custom-popover {
+    --rs-input-bg: var(--input-background-color);
+    --rs-color-focus-ring: #00000000;
+    --rs-input-focus-border: var(--active-color);
+    --rs-checkbox-checked-bg: var(--active-color);
+    --rs-picker-value: var(--active-color);
+    --rs-listbox-option-selected-text: var(--active-color);
+    --rs-listbox-option-selected-bg: var(--background-active-color);
+    --rs-listbox-option-hover-text: var(--active-color);
+    --rs-listbox-option-hover-bg: var(--background-active-color);
+    --rs-picker-count-bg: var(--active-color);
+    --rs-btn-primary-bg: var(--active-color);
+    --rs-btn-primary-hover-bg: var(--active-color);
+    --rs-radio-checked-bg: var(--active-color);
+    --rs-state-focus-shadow: #00000000;
+    --rs-bg-active: var(--active-color);
+    --rs-calendar-cell-selected-hover-bg: var(--active-color);
+    --rs-btn-ghost-border: var(--active-color);
+    --rs-btn-ghost-text: var(--active-color);
+    --rs-btn-ghost-hover-border: var(--active-color);
+    --rs-btn-ghost-hover-text: var(--active-color);
+    --rs-uploader-dnd-hover-border: var(--active-color);
+
+    --rs-blue-500: #0032a0;
+    --rs-blue-700: #3038a0;
+    --rs-blue-800: #2a3089;
+}
+
+#surveys-app .rs-input {
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 3px;
+    background-color: var(--input-background-color);
+}
+
+#surveys-app .rs-picker-input {
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 3px;
+    background-color: var(--input-background-color);
+}
+
+#surveys-app .rs-picker .rs-picker-toggle {
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 3px;
+    background-color: var(--input-background-color);
+}
+
+#surveys-app .rs-picker-default .rs-picker-toggle {
+    border: none;
+    border-bottom: 1px solid var(--input-border-color);
+    border-radius: 3px;
+    background-color: var(--input-background-color);
+}

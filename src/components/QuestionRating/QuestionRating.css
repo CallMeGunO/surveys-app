@@ -1,0 +1,10 @@
+.container {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+
+    font-size: 26px;
+    color: var(--yellow);
+}

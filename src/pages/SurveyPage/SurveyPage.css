@@ -1,0 +1,99 @@
+.container {
+}
+
+.survey-container {
+    width: 1000px;
+    margin-inline: auto;
+    margin-top: 40px;
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    background-color: var(--background-secondary-color);
+    border-radius: 10px;
+}
+
+.survey-data {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}
+
+.image {
+    position: relative;
+    width: 464px;
+}
+
+.image img {
+    width: 100%;
+    height: 300px;
+}
+
+.uploader {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+}
+
+.inputs {
+    display: flex;
+    flex: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font: var(--font-l);
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 10px;
+}
+
+.description span {
+    white-space: nowrap;
+}
+
+.auditory {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+}
+
+.auditory span {
+    white-space: nowrap;
+}
+
+.survey-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.survey-content {
+    width: 100%;
+}

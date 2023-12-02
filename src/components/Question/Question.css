@@ -1,0 +1,47 @@
+.container {
+    margin-bottom: 10px;
+    padding: 0px 24px 24px 24px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.container.active {
+    border-color: var(--active-color);
+}
+
+.header {
+    height: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.content > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: var(--font-l);
+    font-weight: bold;
+}
+
+.title-actions {
+    display: flex;
+}
+
+.question-type-picker {
+    width: 100%;
+}

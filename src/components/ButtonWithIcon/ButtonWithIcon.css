@@ -1,0 +1,30 @@
+.container {
+    padding: 0px;
+    height: 32px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    border-radius: 3px;
+    background-color: var(--transparent-100-color);
+
+    transition-duration: 0.3s;
+}
+
+.container:hover {
+    background-color: var(--hover-color);
+}
+
+.icon {
+    font: var(--font-icon);
+    color: var(--active-color);
+}
+
+.text {
+    color: var(--text-secondary-color);
+}
+
+.container:hover .text {
+    color: var(--text-primary-color);
+}
